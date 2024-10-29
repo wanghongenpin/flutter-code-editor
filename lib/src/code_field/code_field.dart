@@ -145,6 +145,12 @@ class CodeField extends StatefulWidget {
   /// {@macro flutter.widgets.textField.enabled}
   final bool? enabled;
 
+  /// {@macro flutter.widgets.textField.enabled}
+  final bool enableSuggestions;
+
+  /// {@macro flutter.widgets.editableText.onTapOutside}
+  final TapRegionCallback? onTapOutside;
+
   /// {@macro flutter.widgets.editableText.onChanged}
   final void Function(String)? onChanged;
 
@@ -184,6 +190,8 @@ class CodeField extends StatefulWidget {
     this.lineNumberBuilder,
     this.focusNode,
     this.onChanged,
+    this.enableSuggestions = false,
+    this.onTapOutside,
     @Deprecated('Use gutterStyle instead') this.lineNumbers,
     @Deprecated('Use gutterStyle instead')
     this.lineNumberStyle = const GutterStyle(),
@@ -414,10 +422,11 @@ class _CodeFieldState extends State<CodeField> {
       ),
       cursorColor: widget.cursorColor ?? defaultTextStyle.color,
       autocorrect: false,
-      enableSuggestions: false,
+      enableSuggestions: widget.enableSuggestions,
       enabled: widget.enabled,
       onChanged: widget.onChanged,
       readOnly: widget.readOnly,
+      onTapOutside: widget.onTapOutside,
     );
 
     final editingField = Theme(
