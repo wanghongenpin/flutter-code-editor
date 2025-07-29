@@ -136,6 +136,10 @@ class CodeField extends StatefulWidget {
   /// language highlight, themeing and modifiers.
   final CodeController controller;
 
+  /// An UndoHistoryController instance
+  /// to control TextField history.
+  final UndoHistoryController? undoController;
+
   @Deprecated('Use gutterStyle instead')
   final GutterStyle lineNumberStyle;
 
@@ -186,6 +190,7 @@ class CodeField extends StatefulWidget {
   const CodeField({
     super.key,
     required this.controller,
+    this.undoController,
     this.minLines,
     this.maxLines,
     this.expands = false,
@@ -269,6 +274,9 @@ class _CodeFieldState extends State<CodeField> {
     disableSpellCheckIfWeb();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
       final double width = _codeFieldKey.currentContext!.size!.width;
       final double height = _codeFieldKey.currentContext!.size!.height;
       windowSize = Size(width, height);
@@ -320,6 +328,9 @@ class _CodeFieldState extends State<CodeField> {
   void rebuild() {
     setState(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) {
+          return;
+        }
         // For some reason _codeFieldKey.currentContext is null in tests
         // so check first.
         final context = _codeFieldKey.currentContext;
@@ -414,6 +425,7 @@ class _CodeFieldState extends State<CodeField> {
     final defaultTextStyle = TextStyle(
       color: styles?[rootKey]?.color ?? DefaultStyles.textColor,
       fontSize: themeData.textTheme.titleMedium?.fontSize,
+      height: themeData.textTheme.titleMedium?.height,
     );
 
     textStyle = defaultTextStyle.merge(widget.textStyle);
@@ -425,6 +437,7 @@ class _CodeFieldState extends State<CodeField> {
       smartDashesType: widget.smartDashesType,
       smartQuotesType: widget.smartQuotesType,
       controller: widget.controller,
+      undoController: widget.undoController,
       minLines: widget.minLines,
       maxLines: widget.maxLines,
       expands: widget.expands,

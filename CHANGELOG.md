@@ -1,3 +1,15 @@
+## 0.3.4
+
+- Added default height to `defaultTextStyle` (https://github.com/akvelon/flutter-code-editor/pull/297).
+- Added `disposed` and `mounted` checks to `CodeField` and `CodeController` (https://github.com/akvelon/flutter-code-editor/pull/298).
+- Added `UndoHistoryController` to `CodeField` (https://github.com/akvelon/flutter-code-editor/pull/302).
+- Added support for `yaml` comments (https://github.com/akvelon/flutter-code-editor/pull/305).
+
+## 0.3.3
+
+- Added `smartDashesType` and `smartQuotesType` to `CodeField` (https://github.com/akvelon/flutter-code-editor/pull/278).
+- Added named sections support for JavaScript and TypeScript (https://github.com/akvelon/flutter-code-editor/pull/291).
+
 ## 0.3.2
 
 - Flutter 3.22 WASM fixes
